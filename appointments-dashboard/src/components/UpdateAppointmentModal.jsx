@@ -1,8 +1,8 @@
-// src/components/NewAppointmentModal.js
+// src/components/UpdateAppointmentModal.jsx
 
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { createAppointment, updateAppointment } from '../api';
+import { updateAppointment } from '../api';
 
 Modal.setAppElement('#root');  // Accessibility requirement
 
@@ -14,7 +14,7 @@ const convertTo12Hour = (time) => {
   return `${hour12}:${minute.toString().padStart(2, '0')} ${suffix}`;
 };
 
-const NewAppointmentModal = ({
+const UpdateAppointmentModal = ({
   isOpen,
   onRequestClose,
   refreshAppointments,
@@ -56,18 +56,13 @@ const NewAppointmentModal = ({
         doctor,
       };
 
-      if (appointmentData) {
-        // If editing an existing appointment
-        await updateAppointment(appointmentData._id, data);
-      } else {
-        // If creating a new appointment
-        await createAppointment(data);
-      }
+      // Call the update API for existing appointment
+      await updateAppointment(appointmentData._id, data);
 
-      refreshAppointments();  
-      onRequestClose();  
+      refreshAppointments();  // Refresh the appointment list
+      onRequestClose();  // Close the modal
     } catch (error) {
-      console.error('Failed to save appointment:', error.message);
+      console.error('Failed to update appointment:', error.message);
     }
   };
 
@@ -75,9 +70,9 @@ const NewAppointmentModal = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel={appointmentData ? 'Update Appointment' : 'Add New Appointment'}
+      contentLabel="Update Appointment"
     >
-      <h2>{appointmentData ? 'Update Appointment' : 'New Appointment'}</h2>
+      <h2>Update Appointment</h2>
 
       <form onSubmit={handleSubmit}>
         {/* Patient Name */}
@@ -138,7 +133,7 @@ const NewAppointmentModal = ({
           type="submit"
           className="bg-green-500 text-white p-2 mt-2 rounded"
         >
-          {appointmentData ? 'Update' : 'Save'}
+          Update
         </button>
 
         {/* Cancel Button */}
@@ -154,4 +149,4 @@ const NewAppointmentModal = ({
   );
 };
 
-export default NewAppointmentModal;
+export default UpdateAppointmentModal;
