@@ -8,7 +8,7 @@ dotenv.config();
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.DB),
-    AppointmentModule, // Import your Appointment module
+    AppointmentModule,
   ],
 })
 export class AppModule {}
