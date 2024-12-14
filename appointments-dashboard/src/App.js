@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Tabs from "./components/Tabs";
-import SearchFilter from "./components/SearchFilter";
 import AppointmentsTable from "./components/AppointmentsTable";
 import NewAppointmentModal from "./components/NewAppointmentModal";
 import { fetchAppointments } from "./api";
@@ -32,8 +31,7 @@ function App() {
       <div className="flex-1 p-10">
         <Header setIsModalOpen={setIsModalOpen} />
         <Tabs />
-        <div className="bg-white shadow rounded-lg p-5">
-          <SearchFilter />
+        <div className="bg-white shadow rounded-lg p-5">    
           <AppointmentsTable appointments={appointments} />
         </div>
 
